@@ -58,27 +58,28 @@ class _BlaLocationPickerState extends State<BlaLocationPicker> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.only(
-          left: BlaSpacings.m, right: BlaSpacings.m, top: BlaSpacings.s),
-      child: Column(
-        children: [
-          // Top search Search bar
-          BlaSearchBar(
-            onBackPressed: onBackSelected,
-            onSearchChanged: onSearchChanged,
-          ),
-
-          Expanded(
-            child: ListView.builder(
-              itemCount: filteredLocations.length,
-              itemBuilder: (ctx, index) => LocationTile(
-                location: filteredLocations[index],
-                onSelected: onLocationSelected,
+        body: SafeArea(
+       child: Padding(
+         padding: const EdgeInsets.only(
+             left: BlaSpacings.m, right: BlaSpacings.m, top: BlaSpacings.s),
+         child: Column(
+           children: [
+             // Top search Search bar
+             BlaSearchBar(
+               onBackPressed: onBackSelected,
+               onSearchChanged: onSearchChanged,
+             ),
+           Expanded(
+               child: ListView.builder(
+                 itemCount: filteredLocations.length,
+                 itemBuilder: (ctx, index) => LocationTile(
+                   location: filteredLocations[index],
+                   onSelected: onLocationSelected,
+                 ),
               ),
             ),
-          ),
-        ],
+           ],
+         ),
       ),
     ));
   }

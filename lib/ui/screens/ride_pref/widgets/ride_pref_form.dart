@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/web.dart';
 
 import '../../../../model/location/locations.dart';
 import '../../../../model/ride/ride_pref.dart';
@@ -61,6 +62,22 @@ class _RidePrefFormState extends State<RidePrefForm> {
       requestedSeats = 1; // 1 seat book by default
     }
   }
+  @override
+   void didUpdateWidget(covariant RidePrefForm oldWidget) {
+     super.didUpdateWidget(oldWidget);
+ 
+     if (oldWidget.initialPreference == widget.initialPreference) {
+       // If the preferences are the same, we don't update the state
+       return;
+     } else {
+       setState(() {
+         departure = widget.initialPreference!.departure;
+         arrival = widget.initialPreference!.arrival;
+         departureDate = widget.initialPreference!.departureDate;
+         requestedSeats = widget.initialPreference!.requestedSeats;
+       });
+     }
+   }
 
   // ----------------------------------
   // Handle events
@@ -115,6 +132,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
 
       // 3 - Callback withg the new preference
       widget.onSubmit(newPreference);
+      Logger().d('pref updated');
     }
   }
 
